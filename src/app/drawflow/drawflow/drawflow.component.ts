@@ -1,4 +1,4 @@
-import { clone } from 'lodash';
+import { clone, cloneDeep } from 'lodash';
 //import { NavbarComponent } from './../../navbar/navbar.component';
 import { MatConfComponent } from './../../components/mat-conf/mat-conf.component';
 import { Component,ViewChild, Input,Output, OnInit ,EventEmitter} from '@angular/core';
@@ -475,7 +475,6 @@ actionHandlerRemoveLink(connection:any) {
   ar=this.editor.drawflow.drawflow.Home.data[index]['data']['previous'];
   ar = ar.filter((item :string) => item !== moduleLinkOne);
   this.editor.drawflow.drawflow.Home.data[index]['data']['previous']=ar
-  console.log(linkOne, " ---  remove  --->",index,"  draflow  RRRRRRRRRRRRRR  ",JSON.stringify(this.editor.drawflow.drawflow.Home.data))
 
 }
 
@@ -685,12 +684,14 @@ actionHandler01(connection:any) {
 
   getDataByName(name: string): any {
    // { id :1  ,name:"pythonCode",icon: 'fas fa-network-wired',  action:"pythonCode",type:"treat","origin":"local",previous:[],columns:[],initColumns:[],form:{Python_Code:{type:'textarea',label:'Python Code',value:'#use previous df as  df_previousModule and current as df_currentModule \ndf_currentModule=df_previousModule \n #for series use df_currentModule=series.to_frame(name=vals).reset_index() \n#for value to dataFrame  d={val:[val]}  df_currentModule=pd.DataFrame.from_dict(d)',paramValue:'',help:""}}, size: 1, next: [], outPutColumns:[],img:"assets/python.png", color: "white","description":"Python Code"},
-   const module:any = this.traitModule.find((mod) => mod.name === name);
+   const traitModul = cloneDeep(this.traitModule)
+    const module = traitModul.find((mod) => mod.name === name);
    //module.remove("id")
    return module
   }
   getIconByName(name: string): string | null {
-    const module = this.traitModule.find((mod) => mod.name === name);
+    const traitModul = cloneDeep(this.traitModule)
+    const module = traitModul.find((mod) => mod.name === name);
     return module ? module.icon : null;
   }
   getTypeByName(name: string): string | null {
@@ -926,15 +927,8 @@ private addNodeToDrawFlow(name: string, pos_x: number, pos_y: number) {
      console.log("  recive data ")
     });
    
-    //this.showHelp(help)
-    /*const modal = event.target.querySelector('.modal');
-    if (modal) {
-      modal.style.display = 'block';
-      this.editor.editor_mode = 'fixed';
-    }*/
-  }
+ }
 
-   
   closeModal(event: any): void {
     const modal = event.target.closest('.modal');
     if (modal) {
@@ -965,12 +959,81 @@ private addNodeToDrawFlow(name: string, pos_x: number, pos_y: number) {
         }
       event.target.classList.add('selected');
     }
+    CheckValidation() {
+      // Access all nodes in the 'Home' flow
+      const nodes = this.editor.drawflow.drawflow.Home.data;
+    
+      // Array to store IDs of unlinked nodes
+      const unlinkedNodes = [];
+    
+      // Iterate over all nodes
+      for (const nodeId in nodes) {
+        const node = nodes[nodeId];
+    
+        // Check if the node has input or output connections
+        const hasInputs = Object.keys(node.inputs).some(inputKey => node.inputs[inputKey].connections.length > 0);
+        const hasOutputs = Object.keys(node.outputs).some(outputKey => node.outputs[outputKey].connections.length > 0);
+    
+        // If neither inputs nor outputs exist, mark the node as unlinked
+        if (!hasInputs && !hasOutputs) {
+          unlinkedNodes.push(nodeId);
+        }
+      }
+    
+      // If there are unlinked nodes, return false and log them
+      if (unlinkedNodes.length > 0) {
+        alert("Unlinked nodes found:"+ unlinkedNodes);
+        return true; // Validation failed
+      }
+      console.log(" CheckValidation ",JSON.stringify(this.checkNodeConfiguration()))
+      // All nodes are linked
+      return false; // Validation passed
+    }
+
+     checkNodeConfiguration() {
+      let validationResults:any = [];
+      const nodes = this.editor.drawflow.drawflow.Home.data;
+    
+  
+      Object.values(nodes).forEach((node:any) => {
+          let isWellConfigured = true;
+          //console.log("Check ",JSON.stringify(node.data))
+          // Check if the form field exists
+          if (node.data.form) {
+              for (let key in node.data.form) {
+                  let fieldValue = node.data.form[key].value;
+              
+                  // If any form field value is null, undefined, or empty, mark as not well configured
+                  if (fieldValue === null || fieldValue === undefined || fieldValue === "") {
+                     isWellConfigured = false;
+                      break;
+                  }
+              }
+          } //else {
+            //  isWellConfigured = false; // If no form exists, the node is not well configured
+          //}
+  
+          validationResults.push({
+              id: node.id,
+              name: node.name,
+              isWellConfigured: isWellConfigured,
+          });
+      });
+  
+      const notWellConfiguredNodes = validationResults.filter((node:any) => !node.isWellConfigured);
+
+  console.log("Not Well Configured Nodes", notWellConfiguredNodes);
+  return notWellConfiguredNodes;
+  }
+  
+  
+     
+    
     transformEditorToShipBoard(){
-      if (this.editor.drawflow.drawflow.Home.data === undefined) return []
+       if (this.editor.drawflow.drawflow.Home.data === undefined) return []
       const result = Object.values(this.editor.drawflow.drawflow.Home.data).map((item : any) => item.data);
   
-      console.log("transformEditorToShipBoard ",JSON.stringify(result));
-      return result
+       return result
       }
       getLastDigits(input: string): string | '' {
         const match = input.match(/\d+$/); // Matches one or more digits at the end of the string
@@ -1064,7 +1127,7 @@ private addNodeToDrawFlow(name: string, pos_x: number, pos_y: number) {
         });
     }
     
-      
+
     onPlateformChange(event:any){ 
       console.log(' onPlateformChange ',event.value)   
       //this.projectConf['langage']=event.value

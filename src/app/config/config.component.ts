@@ -134,7 +134,7 @@ export class ConfigComponent implements OnInit {
     this.formInput=[];
     this.myFormGroup = new FormGroup(this.group);
     
-    this.receive.SendProject.subscribe((project: any) => {
+   /* this.receive.SendProject.subscribe((project: any) => {
       console.log(Object.keys(project).length ,' receive project before ',project['fileName'])
       if (Object.keys(project).length >0){
          this.projet_name = project['fileName'];
@@ -153,7 +153,7 @@ export class ConfigComponent implements OnInit {
     
     
     });
-   
+   */
     this.receive.SendMessage.subscribe((data: any) => {
     let dataSize = Object.keys(data).length;
 

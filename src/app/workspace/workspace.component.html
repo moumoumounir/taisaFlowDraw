@@ -59,11 +59,7 @@
               (click)="saveProjectServeur()">
               <mat-icon style="margin-top: 10%;color:white">save</mat-icon>
             </button>
-            <button *ngIf="1==1 || (isLastShipHasNext() && paletteBar && shipsInBoard.length>0 )"
-              matTooltip="Delete Project" class="btn btn-project" (click)="deleteElement(1)">
-              <mat-icon style="margin-top: 10%;color:red">delete_forever</mat-icon>
-            </button>
-          </div>
+         </div>
           <div class="col-2">
             <div *ngIf="1==1 || (exceptionCode==0 &&  echangeData.data.length>0 &&  selectedButton=='run' )">
               <h6>count : {{echangeData.data.length}}</h6>
@@ -75,7 +71,7 @@
           </div>
           <div class="col-2">
             <div *ngIf="1==1 ||  shipsInBoard.length> 0">
-              <button *ngIf="!isValidPlot() && !spinerSelectedField" matTooltip="Run Project" class="btn" (click)="runService()">
+              <button *ngIf="!isValid && !spinerSelectedField" matTooltip="Run Project" class="btn" (click)="runService()">
                 <mat-icon style="color: green;">play_arrow</mat-icon>
               </button>
               <button *ngIf="spinerSelectedField" matTooltip="Stop Project" class="btn" (click)="cancelExecution()">
@@ -83,7 +79,7 @@
               </button>             <button matTooltip="View Code" class="btn btn-project" (click)="showCode()">
                 <mat-icon style="margin-top: 15%;">developer_mode</mat-icon>
               </button>
-              <button *ngIf="isValidPlot() && !spinerSelectedField" matTooltip="Generate Plot" class="btn btn-project" (click)='showPlot()'>
+              <button *ngIf="isValid && !spinerSelectedField" matTooltip="Generate Plot" class="btn btn-project" (click)='showPlot()'>
                 <mat-icon style="margin-top: 15%;color:green">show_chart</mat-icon>
               </button>
             </div>

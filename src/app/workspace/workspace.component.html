@@ -1,0 +1,116 @@
+<div fxFlex>
+  <div class="container-fluid">
+    <nav class="navbar">
+      <button class="button_logo" (click)="sidenav.toggle()">
+        <img title="logo" src="assets/logoAnalytics.png" id='navImg'></button>
+      <b id="lbwork">SCV : Smart Cimpaign Value</b>
+      <label id="self"></label>
+
+      <span class="example-spacer"></span>
+
+      <button matTooltip="workSpace" class="btn btn-project" routerLink="/workspace">
+        <mat-icon class="person">home</mat-icon>
+      </button>
+
+      <button matTooltip="{{user}}" class="btn btn-project" routerLink="/user-login">
+        <mat-icon class="person">person</mat-icon>
+      </button>
+      <button matTooltip="Logout" class="btn btn-project" (click)="logout()">
+        <mat-icon class="person">logout</mat-icon>
+      </button>
+
+
+    </nav>
+  </div>
+
+  <!--app-login-user></app-login-user -->
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+      <app-navbar (sidenavClose)="navActionHandler($event);sidenav.close()" mode="side"></app-navbar>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+
+      <div class="drop-section">
+        <div class="row button-container " *ngIf="shipsInBoard.length>=0 " style="align-self: center;">
+          <div class="col-2">
+          <form [formGroup]="plateformForm">
+            <mat-radio-group  formControlName="plateform"  (change)="onPlateformChange($event)"  aria-label="Label">
+            <mat-radio-button value="Python" checked=true>Python </mat-radio-button>
+            <mat-radio-button value="SQL"> SQL </mat-radio-button>
+        
+        </mat-radio-group> 
+        </form>
+          </div>
+          <div class="col-2">projet : {{projectConf['fileName']}}
+          </div>
+
+
+
+          <div class="col-1">
+            <button *ngIf="selectedButton!='run'" mat-button (click)="selectedButtonToRun()">{{extend}}</button>
+            <button *ngIf="selectedButton=='run'" mat-button (click)="selectedButton='Design'">{{reduce}}</button>
+          </div>
+          <div class="col-2">
+            <button  matTooltip="Save Project" class="btn btn-project"
+              (click)="saveProjectServeur()">
+              <mat-icon style="margin-top: 10%;color:white">save</mat-icon>
+            </button>
+            <button *ngIf="1==1 || (isLastShipHasNext() && paletteBar && shipsInBoard.length>0 )"
+              matTooltip="Delete Project" class="btn btn-project" (click)="deleteElement(1)">
+              <mat-icon style="margin-top: 10%;color:red">delete_forever</mat-icon>
+            </button>
+          </div>
+          <div class="col-2">
+            <div *ngIf="1==1 || (exceptionCode==0 &&  echangeData.data.length>0 &&  selectedButton=='run' )">
+              <h6>count : {{echangeData.data.length}}</h6>
+            </div>
+            <div *ngIf="spinerSelectedField && echangeData.data.length==0">
+              <mat-progress-bar class="inner" mode="indeterminate"  diameter="40"></mat-progress-bar>             
+            </div>  
+  
+          </div>
+          <div class="col-2">
+            <div *ngIf="1==1 ||  shipsInBoard.length> 0">
+              <button *ngIf="!isValidPlot() && !spinerSelectedField" matTooltip="Run Project" class="btn" (click)="runService()">
+                <mat-icon style="color: green;">play_arrow</mat-icon>
+              </button>
+              <button *ngIf="spinerSelectedField" matTooltip="Stop Project" class="btn" (click)="cancelExecution()">
+                <mat-icon style="color: red;">stop</mat-icon>
+              </button>             <button matTooltip="View Code" class="btn btn-project" (click)="showCode()">
+                <mat-icon style="margin-top: 15%;">developer_mode</mat-icon>
+              </button>
+              <button *ngIf="isValidPlot() && !spinerSelectedField" matTooltip="Generate Plot" class="btn btn-project" (click)='showPlot()'>
+                <mat-icon style="margin-top: 15%;color:green">show_chart</mat-icon>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- div *ngIf=" selectedButton!='run'  " -->
+        <div div [ngClass]="selectedButton  != 'run' ? 'Design' : 'Run'" >
+        <app-drawflow [InputDrawflow]="drawflow" (confElementChanged)="validateConfigField($event)"></app-drawflow>
+      </div>
+      <!--div *ngIf="  selectedButton=='run' " style="height: 630px;">
+        <app-dynamic-table-list [echangeData]="echangeData"
+          (countChanged)="actionHandler1($event)"></app-dynamic-table-list>
+      </div -->
+
+    
+
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container> 
+ <div *ngIf="  selectedButton=='run' " style="height: 530px;">
+ <app-dynamic-table-list [echangeData]="echangeData"
+    (countChanged)="actionHandler1($event)"></app-dynamic-table-list>
+</div> 
+  <nav class="nav-bar" style="height: 50px;">
+        <b id="lbwork">Contact : </b>
+      </nav>
+</div>

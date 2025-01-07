@@ -1,0 +1,31 @@
+<!--p>factoriel works!</p>
+<div>
+    <h1>Factorial Calculation</h1 -->
+    <!--input [formControl]="inputControl" type="number" placeholder="Enter a number" /  -->
+    <!--button (click)="calculateFactorialPost()">Calculate</button>
+
+    <div *ngIf="progress">
+        <p>Progress: {{ progress }}</p>
+        <p>Result so far: {{ result }}</p>
+    </div>
+</div -->
+
+<div>
+    <h1>Factorial Calculator</h1>
+
+ <!-- Input Field for Number -->
+ <label for="factorialNumber">Enter a Number:</label>
+ <input
+   id="factorialNumber"
+   type="number"
+   [(ngModel)]="numberInput"
+   placeholder="Enter a positive integer"
+ />
+
+    <button (click)="calculateFactorial()">Calculate Factorial</button>
+    <div *ngIf="progress >= 0">
+        <p>Progress: {{ progress }}%</p>
+        <p>Result: {{ result }}</p>
+    </div>
+  </div>
+  

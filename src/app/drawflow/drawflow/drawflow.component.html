@@ -1,0 +1,180 @@
+
+<div class="wrapper">
+ 
+    <div class="col-2">
+      <!--div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="facebook">
+        <i class="fab fa-facebook"></i><span> Facebook</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="slack">
+        <i class="fab fa-slack"></i><span> Slack recive message</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="github">
+        <i class="fab fa-github"></i><span> Github Star</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="telegram">
+        <i class="fab fa-telegram"></i><span> Telegram send message</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="aws">
+        <i class="fab fa-aws"></i><span> AWS</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="log">
+        <i class="fas fa-file-signature"></i><span> File Log</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="google">
+        <i class="fab fa-google-drive"></i><span> Google Drive save</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="email">
+        <i class="fas fa-at"></i><span> Email send</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="template">
+        <i class="fas fa-code"></i><span> Template</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="multiple">
+        <i class="fas fa-code-branch"></i><span> Multiple inputs/outputs</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="personalized">
+        <i class="fas fa-fill"></i><span> Personalized</span>
+      </div>
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="dbclick">
+        <i class="fas fa-mouse"></i><span> DBClick!</span>
+      </div -->
+      <!--div  *ngFor="let module of modules">
+        <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name">
+          <i [class]="module.icon"></i><span> {{module.name}}</span>
+           
+      </div>
+      </div -->
+      <mat-card class="mat-card-class"> 
+        <mat-card-title class="type-class">             
+        <mat-icon>folder</mat-icon> Input   
+        </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+     
+        <div   style="overflow-y: auto;" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="flex-start">
+          <ng-container *ngFor="let module of moduleInput">
+            
+                 <img  [src]="module.img !== undefined ? module.img : 'assets/imgInput1.png'" class="icon-class" matTooltip="{{module.name}}"  draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name" />
+             
+                </ng-container>
+        </div>        
+         
+    </mat-card-content>
+    </mat-card>
+    <mat-card class="mat-card-class"> 
+      <mat-card-title class="type-class">             
+      <mat-icon>setting</mat-icon> Traitement   
+      </mat-card-title>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+   
+      <div   style="overflow-y: auto;" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="flex-start">
+        <ng-container *ngFor="let module of moduletreat">
+          
+               <img  [src]="module.img !== undefined ? module.img : 'assets/imgInput1.png'" class="icon-class" matTooltip="{{module.name}}"  draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name" />
+           
+              </ng-container>
+      </div>        
+       
+  </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-card-class"> 
+    <mat-card-title class="type-class">             
+    <mat-icon>mail</mat-icon> Sending   
+    </mat-card-title>
+<mat-divider></mat-divider>
+<mat-card-content>
+ 
+    <div   style="overflow-y: auto;" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="flex-start">
+      <ng-container *ngFor="let module of moduleSending">
+        
+             <img  [src]="module.img !== undefined ? module.img : 'assets/imgInput1.png'" class="icon-class" matTooltip="{{module.name}}"  draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name" />
+         
+            </ng-container>
+    </div>        
+     
+</mat-card-content>
+</mat-card>
+<mat-card class="mat-card-class"> 
+  <mat-card-title class="type-class">             
+  <mat-icon>debug</mat-icon> Debug   
+  </mat-card-title>
+<mat-divider></mat-divider>
+<mat-card-content>
+
+  <div   style="overflow-y: auto;" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="flex-start">
+    <ng-container *ngFor="let module of moduleDebug">
+      
+           <img  [src]="module.img !== undefined ? module.img : 'assets/imgInput1.png'" class="icon-class" matTooltip="{{module.name}}"  draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name" />
+       
+          </ng-container>
+  </div>        
+   
+</mat-card-content>
+</mat-card>
+<mat-card class="mat-card-class"> 
+  <mat-card-title class="type-class">             
+  <mat-icon>debug</mat-icon> output   
+  </mat-card-title>
+<mat-divider></mat-divider>
+<mat-card-content>
+
+  <div   style="overflow-y: auto;" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="flex-start">
+    <ng-container *ngFor="let module of moduleOutput">
+      
+           <img  [src]="module.img !== undefined ? module.img : 'assets/imgInput1.png'" class="icon-class" matTooltip="{{module.name}}"  draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name" />
+       
+          </ng-container>
+  </div>        
+   
+</mat-card-content>
+</mat-card>
+<!--mat-card class="mat-card-class"> 
+  <mat-card-title class="type-class">             
+  <mat-icon>plot</mat-icon> plot   
+  </mat-card-title>
+<mat-divider></mat-divider>
+<mat-card-content>
+
+  <div   style="overflow-y: auto;" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="flex-start">
+    <ng-container *ngFor="let module of plotModule">
+      
+           <img  [src]="module.img !== undefined ? module.img : 'assets/imgInput1.png'" class="icon-class" matTooltip="{{module.name}}"  draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name" />
+       
+          </ng-container>
+  </div>        
+   
+</mat-card-content>
+</mat-card -->
+
+      <!--div  *ngFor="let module of traitModule">
+      <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" [attr.data-node]="module.name">
+        <i [class]="module.icon"></i><span> {{module.name}}</span>
+         
+    </div>
+    </div -->
+    </div>
+
+    <div class="col">
+      <!--div class="menu">
+        <ul>
+          <li onclick="editor.changeModule('Home'); changeModule(event);" class="selected">DrawFlow</li>
+        </ul>
+      </div -->
+      <div id="drawflow" (drop)="drop($event)" (dragover)="allowDrop($event)">
+
+        <div class="btn-export" (click)="save()">Save</div>
+        <div class="btn-clear" (click)="onClear()">Clear</div>
+        <div class="btn-lock">
+          <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
+          <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');"
+            style="display:none;"></i>
+        </div>
+        <div class="bar-zoom">
+          <i class="fas fa-search-minus" (click)="onZoomOut()"></i>
+          <i class="fas fa-search" (click)="onZoomReset()"></i>
+          <i class="fas fa-search-plus" (click)="onZoomIn()"></i>
+        <!--/div -->
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,27 @@
+.title-box {
+    display: inline-block; /* Adjust width based on content */
+    text-align: center; /* Center-align the text */
+    background-color: #f8f9fa; /* Optional: Background color */
+    border-radius: 5px; /* Optional: Rounded corners */
+    padding: 10px; /* Add some spacing */
+  }
+  
+  .icon-text-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack icon and text vertically */
+    align-items: center; /* Center items horizontally */
+  }
+  
+  .title-box i {
+    font-size: 20px; /* Icon size */
+    margin-bottom: 5px; /* Space between icon and text */
+    color: #333; /* Icon color */
+  }
+  
+  .title-box span {
+    font-size: 14px; /* Text size */
+    color: #333; /* Text color */
+    white-space: nowrap; /* Ensure text doesn't wrap */
+  }
+  
+
